@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/jobs', 'JobController@index');
+Route::get('/jobs/new', 'JobController@new');
+Route::post('/jobs/create', 'JobController@create');
