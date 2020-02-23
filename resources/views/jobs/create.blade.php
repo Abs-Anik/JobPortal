@@ -1,3 +1,5 @@
+@extends('layout.app')
+@section('content')
 <h1>
 	Post New Job
 </h1>
@@ -23,3 +25,4 @@
 		<button type="submit"> Create </button>
 	</div>
 </form>
+@endsection

@@ -10,11 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/jobs', 'JobController@index');
-Route::get('/jobs/new', 'JobController@new');
-Route::post('/jobs/create', 'JobController@create');
+Route::get('/jobs/create', 'JobController@create');
+Route::post('/jobs/store', 'JobController@store');
+Route::get('/jobs/show/{id}', 'JobController@show');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
