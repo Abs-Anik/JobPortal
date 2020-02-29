@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Job;
+use auth;
 
 use Illuminate\Http\Request;
 
@@ -12,10 +13,23 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $jobs = Job::all();
+       if($request->category) {
+          $jobs = Job::where("category", '=', $request->category)->get();
+       } 
+       else if($request->search) {
+         $jobs = Job::where("title", 'like', '%' . $request->search . '%')->get();
+       }
+       else {
+          $jobs = Job::all();
+       }
        return view('jobs.index', ['jobs' => $jobs]);
+    }
+
+    public function my_jobs() {
+        $jobs = Job::where('user_id', '=', Auth::user()->id)->get();
+        return view('jobs.my_jobs', ['jobs' => $jobs]);
     }
 
     /**
@@ -25,7 +39,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('jobs.create');
+            return view('jobs.create');
     }
 
     /**
@@ -41,7 +55,8 @@ class JobController extends Controller
        $job->requirements = $request->requirements;
        $job->location = $request->location;
        $job->salary = $request->salary;
-       $job->user_id = 1;
+       $job->user_id = Auth::user()->id;
+       $job->category = $request->category;
        $job->save();
        return redirect('/jobs');
     }

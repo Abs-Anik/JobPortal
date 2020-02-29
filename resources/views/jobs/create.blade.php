@@ -1,3 +1,4 @@
+<?php use App\Job ?>
 @extends('layout.app')
 @section('content')
 <h1>
@@ -12,6 +13,14 @@
 	<div>
 		<label>Location</label> <br/>
 		<input type="text" name="location">
+	</div>
+	<div>
+		<label>Category</label> <br/>
+		<select name='category'>
+			@foreach(Job::JOB_CATEGORY as $key => $value)
+			  <option value='{{$key}}'> {{$value}} </option>
+			@endforeach
+		</select>
 	</div>
 	<div>
 		<label>Requirements</label> <br/>

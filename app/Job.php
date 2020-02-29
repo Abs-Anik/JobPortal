@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    //
+    public const JOB_CATEGORY = array('it' => 'IT', 'network' => 'Network', 'software' => 'Software');
 }
