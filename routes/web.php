@@ -19,7 +19,11 @@ Route::get('/jobs', 'JobController@index');
 Route::get('/jobs/create', 'JobController@create')->middleware('auth');
 Route::post('/jobs/store', 'JobController@store');
 Route::get('/jobs/show/{id}', 'JobController@show');
+Route::get('/jobs/{id}/apply', 'JobController@apply');
 Auth::routes();
 Route::get('/profile', 'HomeController@profile')->middleware('auth');
+Route::post('/upload_avatar', 'HomeController@uploadAvatar')->middleware('auth');
 
 Route::get('/my_jobs', 'JobController@my_jobs')->middleware('auth');
+
+Route::resource('blogs', 'BlogController');

@@ -16,6 +16,7 @@
 					<thead>
 						<tr>
 							<th> ID </th>
+							<th> ORG </th>
 							<th> Title </th>
 							<th> Location </th>
 							<th> Requirements </th>
@@ -27,6 +28,7 @@
 						  @foreach ($jobs as $job)
 						    <tr>
 						      <td> {{$job->id}} </td>
+						      <td> {{$job->user->name}} </td>
 						      <td> {{$job->title}} </td>
 						      <td> {{$job->location}} </td>
 						      <td> {{$job->requirements}} </td>

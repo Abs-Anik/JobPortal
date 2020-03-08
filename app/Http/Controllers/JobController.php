@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Job;
+use App\JobApplication;
 use auth;
 
 use Illuminate\Http\Request;
@@ -28,8 +29,13 @@ class JobController extends Controller
     }
 
     public function my_jobs() {
-        $jobs = Job::where('user_id', '=', Auth::user()->id)->get();
+        // $jobs = Job::where('user_id', '=', Auth::user()->id)->get();
+        $jobs = Auth::user()->jobs()->get();
         return view('jobs.my_jobs', ['jobs' => $jobs]);
+    }
+
+    function comments() {
+        return $this->hasMany('App\Blog');
     }
 
     /**
@@ -105,5 +111,14 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function apply($id) {
+      $job = Job::Find($id);
+      $application = new JobApplication();
+      $application->job_id = $job->id;
+      $application->user_id = Auth::user()->id;
+      $application->save();
+      return redirect('/jobs/show/'.$job->id);
     }
 }
